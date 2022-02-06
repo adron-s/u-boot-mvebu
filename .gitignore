@@ -93,5 +93,7 @@ GTAGS
 *~
 \#*#
 
+tools/boot/*
+
 # Python cache
 __pycache__
