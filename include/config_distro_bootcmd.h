@@ -488,6 +488,18 @@
 		"done; "                                                  \
 		"setenv devplist\0"					  \
 	\
+	"all_ops_done="																											\
+		"while true; do	"																									\
+			"echo 'All is done'; sleep 1 && gpio toggle C27; "							\
+			"sleep 1 && gpio toggle C19; " 																	\
+		"done\0"																													\
+																																			\
+	"get_and_write_rbt_with_aux="																				\
+		"dhcp /rbt-with-aux-for-mtd5.bin && "															\
+		"mtd erase RouterBOOT && " 																				\
+		"mtd write RouterBOOT ${loadaddr} 0 0x10000"											\
+		"\0"																															\
+																																			\
 	BOOT_TARGET_DEVICES(BOOTENV_DEV)                                  \
 	\
 	"distro_bootcmd=" BOOTENV_SET_SCSI_NEED_INIT                      \
