@@ -62,7 +62,35 @@
 			#size-cells = <1>;
 
 			partition@0 {
-				label = "RouterBoot";
+				label = "ATF";
+				reg = <0x0 0x95c04>;
+			};
+			partition@1 {
+				label = "backup-RouterBOOT";
+				reg = <0x95c04 0x193FC>;
+			};
+			hard_config: partition@2 {
+				label = "hard-config";
+				reg = <0xaf000 0x1000>;
+			};
+			partition@3 {
+				label = "RouterBOOT";
+				reg = <0xb0000 0x10000>;
+			};
+			partition@4 {
+				label = "soft-config";
+				reg = <0xc0000 0x10000>;
+			};
+			partition@5 {
+				label = "DTS";
+				reg = <0xd0000 0x10000>;
+			};
+			partition@6 {
+				label = "kernel";
+				reg = <0x100000 0xf00000>;
+			};
+			partition@7 {
+				label = "first-1M";
 				reg = <0x0 0x100000>;
 			};
 		};
@@ -145,6 +173,16 @@
 };
 
 &cp0_comphy {
+	/*
+	 * CP0 Serdes Configuration:
+	 * Lane 0: Not used
+	 * Lane 1: Not used
+	 * Lane 2: SFI (10G)
+	 * Lane 3: USB HOST 0
+	 * Lane 4: Not used
+	 * Lane 5: Not used
+	 */
+
 	phy0 {
 		phy-type = <COMPHY_TYPE_UNCONNECTED>;
 	};
@@ -174,6 +212,10 @@
 
 &cp0_mdio {
 	status = "okay";
+
+	phy0: ethernet-phy@0 {
+		reg = <0>;
+	};
 };
 
 &cp0_ethernet {
